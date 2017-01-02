@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Most code should not use this and instead go by its navigation controller's bar style.
 // Or from Swift use UIStatusBarStyle.init(barStyle:)
 - (UIStatusBarStyle)standardStatusBarStyle;
+- (bool)isLightTheme;
 
 #pragma mark Primary
 

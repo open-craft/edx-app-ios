@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2013, Facebook, Inc.
+ *  Copyright (c) 2015, Facebook, Inc.
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -29,6 +29,21 @@ extern NSString *const FBSnapshotTestControllerErrorDomain;
 extern NSString *const FBReferenceImageFilePathKey;
 
 /**
+ Errors returned by the methods of FBSnapshotTestController sometimes contain this key in the `userInfo` dictionary.
+ */
+extern NSString *const FBReferenceImageKey;
+
+/**
+ Errors returned by the methods of FBSnapshotTestController sometimes contain this key in the `userInfo` dictionary.
+ */
+extern NSString *const FBCapturedImageKey;
+
+/**
+ Errors returned by the methods of FBSnapshotTestController sometimes contain this key in the `userInfo` dictionary.
+ */
+extern NSString *const FBDiffedImageKey;
+
+/**
  Provides the heavy-lifting for FBSnapshotTestCase. It loads and saves images, along with performing the actual pixel-
  by-pixel comparison of images.
  Instances are initialized with the test class, and directories to read and write to.
@@ -37,8 +52,24 @@ extern NSString *const FBReferenceImageFilePathKey;
 
 /**
  Record snapshots.
- **/
+ */
 @property (readwrite, nonatomic, assign) BOOL recordMode;
+
+/**
+ When @c YES appends the name of the device model and OS to the snapshot file name.
+ The default value is @c NO.
+ */
+@property (readwrite, nonatomic, assign, getter=isDeviceAgnostic) BOOL deviceAgnostic;
+
+/**
+ Uses drawViewHierarchyInRect:afterScreenUpdates: to draw the image instead of renderInContext:
+ */
+@property (readwrite, nonatomic, assign) BOOL usesDrawViewHierarchyInRect;
+
+/**
+ The directory in which referfence images are stored.
+ */
+@property (readwrite, nonatomic, copy) NSString *referenceImagesDirectory;
 
 /**
  @param testClass The subclass of FBSnapshotTestCase that is using this controller.
@@ -52,7 +83,6 @@ extern NSString *const FBReferenceImageFilePathKey;
  @returns An instance of FBSnapshotTestController.
  */
 - (instancetype)initWithTestName:(NSString *)testName;
-
 
 /**
  Performs the comparison of the layer.
@@ -95,12 +125,6 @@ extern NSString *const FBReferenceImageFilePathKey;
                            tolerance:(CGFloat)tolerance
                                error:(NSError **)errorPtr;
 
-
-/**
- The directory in which referfence images are stored.
- */
-@property (readwrite, nonatomic, copy) NSString *referenceImagesDirectory;
-
 /**
  Loads a reference image.
  @param selector The test method being run.
@@ -111,18 +135,6 @@ extern NSString *const FBReferenceImageFilePathKey;
 - (UIImage *)referenceImageForSelector:(SEL)selector
                             identifier:(NSString *)identifier
                                  error:(NSError **)errorPtr;
-
-/**
- Saves a reference image.
- @param selector The test method being run.
- @param identifier The optional identifier, used when multiple images are tested in a single -test method.
- @param errorPtr An error, if this methods returns NO, the error will be something useful.
- @returns An image.
- */
-- (BOOL)saveReferenceImage:(UIImage *)image
-                  selector:(SEL)selector
-                identifier:(NSString *)identifier
-                     error:(NSError **)errorPtr;
 
 /**
  Performs a pixel-by-pixel comparison of the two images with an allowable margin of error.

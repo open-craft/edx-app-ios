@@ -86,7 +86,7 @@ class DiscussionCommentCell: UITableViewCell {
         authorProfileImage.snp_makeConstraints { (make) in
             make.leading.equalTo(containerView).offset(StandardHorizontalMargin)
             make.top.equalTo(containerView).offset(StandardVerticalMargin)
-            make.width.equalTo(UserProfileImageSize.width)
+            make.width.equalTo(0.0)
             make.height.equalTo(UserProfileImageSize.height)
         }
         

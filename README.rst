@@ -36,7 +36,7 @@ edX platform.  This mechanism is also used to make other values available to
 the app at runtime and store secret keys for third party services.
 
 There is a default configuration that points to an edX devstack instance
-running on localhost. See the ``default_config`` directory. For the default
+running on localhost. See the ``Pods/OEXRemoteConfig/config`` directory. For the default
 configuration to work, you must add OAuth credentials specific to your
 installation.
 
@@ -74,6 +74,11 @@ have the following ``edx.properties``:
 
 The full set of known keys can be found in the ``OEXConfig.m`` or see
 `additional documentation <https://openedx.atlassian.net/wiki/display/MA/App+Configuration+Flags>`_.
+
+Advanced Setup
+--------------
+
+If you prefer to use a cocoapod to manage your configuration file, you can fork [this repo](https://github.com/appsembler/edx-app-ios-config) and set the environment variable OEX_REMOTE_CONFIG_POD_URL to your new custom cocoapod repo. You will also need to open edx.properties and change its edx.dir to 'Pods/OEXConfig/config'.
 
 Additional Customization
 ------------------------

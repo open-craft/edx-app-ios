@@ -99,6 +99,10 @@ static OEXStyles* sSharedStyles;
     }
 }
 
+- (bool)isLightTheme {
+    return true;
+}
+
 #pragma mark Primary
 
 - (UIColor*)primaryXDarkColor {

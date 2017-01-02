@@ -370,7 +370,7 @@ typedef  enum OEXAlertType
         UILabel* courseTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.frame.size.width - 20, RECENT_HEADER_HEIGHT)];
         courseTitle.numberOfLines = 2;
         courseTitle.text = obj_course.name;
-        courseTitle.font = [UIFont fontWithName:@"OpenSans-Semibold" size:14.0f];
+        courseTitle.font = [[OEXStyles sharedStyles] semiBoldSansSerifOfSize:14.0f];
         courseTitle.textColor = [UIColor colorWithRed:69.0 / 255.0 green:73.0 / 255.0 blue:81.0 / 255.0 alpha:1.0];
         [view addSubview:courseTitle];
 
@@ -424,7 +424,8 @@ typedef  enum OEXAlertType
         else {
             Vcount = [NSString stringWithFormat:@"%ld Videos", (long)count];
         }
-        NSString* videoDetails = [NSString stringWithFormat:@"%@, %@", Vcount, [dictVideo objectForKey:CAV_KEY_VIDEOS_SIZE]];
+        
+        NSString* videoDetails = [NSString stringWithFormat:@"%@", Vcount];
         
         [[CourseCardViewModel onMyVideos:obj_course collectionInfo:videoDetails] apply:infoView networkManager:self.environment.networkManager];
         
@@ -443,10 +444,14 @@ typedef  enum OEXAlertType
 
         double size = [obj_video.summary.size doubleValue];
         float result = ((size / 1024) / 1024);
-        cell.lbl_Size.text = [NSString stringWithFormat:@"%.2fMB", result];
-
-        if(!obj_video.summary.duration) {
-            cell.lbl_Time.text = @"NA";
+        if (result < 0.01) {
+            cell.lbl_Size.text = @"";
+        }
+        else {
+            cell.lbl_Size.text = [NSString stringWithFormat:@"%.2fMB", result];
+        }
+        if(obj_video.summary.duration < 0.01) {
+            cell.lbl_Time.text = @"";
         }
         else {
             cell.lbl_Time.text = [OEXDateFormatting formatSecondsAsVideoLength: obj_video.summary.duration];

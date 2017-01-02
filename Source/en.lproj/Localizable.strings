@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   edXVideoLocker
 
@@ -309,7 +309,7 @@
 /* Button title showing screen providing information about why a course may not be visible */
 "ENROLLMENT_LIST.LOOKING_FOR_COURSE" = "Can't find one of your courses?";
 /* Error message when user is not enrolled to any course and course discovery is also disabled.*/
-"ENROLLMENT_LIST.NO_ENROLLMENT" = "It looks like you are not enrolled in any courses yet.";
+"ENROLLMENT_LIST.NO_ENROLLMENT" = "Our team is currently working hard to let you enroll in courses within the app.\n\nIn the meantime, you can enroll in courses through our website (http://104.155.160.131/) - you'll need to log in, enroll, and then return to the app when you're done.";
 /* Prompt indicating user needs to enter an email address */
 "ENTER_EMAIL"="Please enter your user name or e-mail address and try again.";
 /* Prompt indicating user needs to enter a password */
@@ -507,7 +507,7 @@
 /* Button title when responses are closed for a thread */
 "RESPONSES_CLOSED"="Responses are closed for this post";
 /* Title of registration agreement */
-"REGISTRATION_AGREEMENT_BUTTON_TITLE"="{platform_name} Terms of Service and Honor Code";
+"REGISTRATION_AGREEMENT_BUTTON_TITLE"="{platform_name} Terms of Service";
 /* Create account agreement. Followed by list of agreement names like "End User License Agreement" */
 "REGISTRATION_AGREEMENT_MESSAGE"="By creating an account, you agree to the ";
 /* Button text allowing user create an account */

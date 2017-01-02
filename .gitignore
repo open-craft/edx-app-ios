@@ -8,5 +8,5 @@ xcuserdata
 .gradle
 build
 /edx.properties
-default_config/local.yaml 
+default_config/.env.cloudera.yaml
 *.gcda

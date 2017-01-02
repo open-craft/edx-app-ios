@@ -28,6 +28,7 @@ class OEXRearTableViewController : UITableViewController {
         let networkManager = OEXRouter.sharedRouter().environment.networkManager
         let session = OEXRouter.sharedRouter().environment.session
         let userProfileManager = OEXRouter.sharedRouter().environment.dataManager.userProfileManager
+        let styles = OEXRouter.sharedRouter().environment.styles
         weak var router = OEXRouter.sharedRouter()
     }
     
@@ -60,6 +61,11 @@ class OEXRearTableViewController : UITableViewController {
         //UI
         logoutButton.setBackgroundImage(UIImage(named: "bt_logout_active"), forState: .Highlighted)
         
+        if (self.environment.styles.isLightTheme()) {
+            tableView.backgroundColor = environment.styles.primaryBaseColor()
+            tableView.separatorColor = environment.styles.primaryBaseColor()
+        }
+
         //Listen to notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OEXRearTableViewController.dataAvailable(_:)), name: NOTIFICATION_URL_RESPONSE, object: nil)
         

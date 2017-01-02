@@ -334,7 +334,7 @@ typedef NS_ENUM (NSUInteger, OEXAlertType) {
 
         sectionTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, mainViewWidth - 20, 30)];
         sectionTitle.text = headerTitle;
-        sectionTitle.font = [UIFont fontWithName:@"OpenSans-Semibold" size:14.0f];
+        sectionTitle.font = [[OEXStyles sharedStyles] semiBoldSansSerifOfSize:14.0f];
         sectionTitle.textColor = [UIColor blackColor];
         [viewMain addSubview:sectionTitle];
     }
@@ -356,13 +356,13 @@ typedef NS_ENUM (NSUInteger, OEXAlertType) {
         
         chapTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, mainViewWidth - 20, 50)];
         chapTitle.text = chapterName;
-        chapTitle.font = [UIFont fontWithName:@"OpenSans-Semibold" size:14.0f];
+        chapTitle.font = [[OEXStyles sharedStyles] semiBoldSansSerifOfSize:14.0f];
         chapTitle.textColor = [UIColor whiteColor];
         [viewMain addSubview:chapTitle];
 
         sectionTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, mainViewWidth - 20, 30)];
         sectionTitle.text = headerTitle;
-        sectionTitle.font = [UIFont fontWithName:@"OpenSans-Semibold" size:14.0f];
+        sectionTitle.font = [[OEXStyles sharedStyles] semiBoldSansSerifOfSize:14.0f];
         sectionTitle.textColor = [UIColor blackColor];
         [viewMain addSubview:sectionTitle];
     }
@@ -395,12 +395,10 @@ typedef NS_ENUM (NSUInteger, OEXAlertType) {
     }
     double size = [obj_video.summary.size doubleValue];
     float result = ((size / 1024) / 1024);
-    cell.lbl_Size.text = [NSString stringWithFormat:@"%.2fMB", result];
-
-    if(!obj_video.summary.duration) {
-        cell.lbl_Time.text = @"NA";
+    if (result > 0.01) {
+        cell.lbl_Size.text = [NSString stringWithFormat:@"%.2fMB", result];
     }
-    else {
+    if(obj_video.summary.duration > 0.01) {
         cell.lbl_Time.text = [OEXDateFormatting formatSecondsAsVideoLength: obj_video.summary.duration];
     }
 
