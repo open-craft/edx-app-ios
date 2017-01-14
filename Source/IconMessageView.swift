@@ -12,6 +12,7 @@ import UIKit
 private let IconMessageSize : CGFloat = 80.0
 private let IconMessageRotatedSize : CGFloat = IconMessageSize * 1.75
 private let IconMessageTextWidth : CGFloat = 240.0
+private let IconMessageTextHeight : CGFloat = 340.0
 private let IconMessageMargin : CGFloat = 15.0
 private let MessageButtonMargin : CGFloat = 15.0
 private let BottomButtonHorizontalMargin : CGFloat = 12.0
@@ -117,6 +118,7 @@ class IconMessageView : UIView {
         iconView.tintColor = OEXStyles.sharedStyles().neutralLight()
         
         messageView.numberOfLines = 0
+        messageView.adjustsFontSizeToFitWidth = true
         
         bottomButton.contentEdgeInsets = UIEdgeInsets(top: BottomButtonVerticalMargin, left: BottomButtonHorizontalMargin, bottom: BottomButtonVerticalMargin, right: BottomButtonHorizontalMargin)
         
@@ -147,6 +149,7 @@ class IconMessageView : UIView {
             make.centerX.equalTo(container)
             make.width.equalTo(IconMessageTextWidth)
             if !hasBottomButton {
+                make.height.lessThanOrEqualTo(IconMessageTextHeight)
                 make.bottom.equalTo(container)
             }
         }
