@@ -3,3 +3,5 @@ HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Priva
 OTHER_LDFLAGS = -framework "CFNetwork" -framework "Foundation"
 PODS_ROOT = ${SRCROOT}
 SKIP_INSTALL = YES
+PODS_TARGET_SRCROOT = ${PODS_ROOT}/OHHTTPStubs
+PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.${PRODUCT_NAME:rfc1034identifier}

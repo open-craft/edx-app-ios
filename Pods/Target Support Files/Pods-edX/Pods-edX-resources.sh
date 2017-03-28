@@ -14,6 +14,24 @@ realpath() {
   echo "$DIRECTORY/$FILENAME"
 }
 
+case "${TARGETED_DEVICE_FAMILY}" in
+  1,2)
+    TARGET_DEVICE_ARGS="--target-device ipad --target-device iphone"
+    ;;
+  1)
+    TARGET_DEVICE_ARGS="--target-device iphone"
+    ;;
+  2)
+    TARGET_DEVICE_ARGS="--target-device ipad"
+    ;;
+  3)
+    TARGET_DEVICE_ARGS="--target-device tv"
+    ;;
+  *)
+    TARGET_DEVICE_ARGS="--target-device mac"
+    ;;
+esac
+
 install_resource()
 {
   case $1 in
