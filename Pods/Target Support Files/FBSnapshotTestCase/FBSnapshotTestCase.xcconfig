@@ -4,3 +4,5 @@ HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Priva
 OTHER_LDFLAGS = -framework "XCTest"
 PODS_ROOT = ${SRCROOT}
 SKIP_INSTALL = YES
+PODS_TARGET_SRCROOT = ${PODS_ROOT}/FBSnapshotTestCase
+PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.${PRODUCT_NAME:rfc1034identifier}
