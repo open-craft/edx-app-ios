@@ -199,7 +199,7 @@ git_command = '/usr/bin/git'
 
     def _cherry_pick(self, reference):
         """Cherry-pick the given reference."""
-        call_args = [self.git_command, 'cherry-pick', reference]
+        call_args = [self.git_command, 'cherry-pick', '--allow-empty', reference]
         return self._system_command(call_args)
 
     @staticmethod
