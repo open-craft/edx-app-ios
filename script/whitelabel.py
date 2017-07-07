@@ -118,10 +118,12 @@ git_command = '/usr/bin/git'
         """
         Update the properties, resources, and configuration of the current app.
         """
-        self.create_project_properties()
-        self.update_plist()
-        self.copy_resources()
-        self.apply_patches()
+        if self.apply_patches():
+            self.create_project_properties()
+            self.update_plist()
+            self.copy_resources()
+        else:
+            logging.error("Update aborted until patches are repaired.")
 
     def create_project_properties(self):
         """
@@ -140,8 +142,10 @@ git_command = '/usr/bin/git'
         Update the app's plist file.
         """
         for name, value in self.plist.iteritems():
-            logging.info("Updating %s: %s=%s", self.project_plist, name, value)
-            self._update_plist(name, value)
+            if self._update_plist(name, value):
+                logging.info("Updated %s: %s=%s", self.project_plist, name, value)
+            else:
+                logging.error("Error updating %s: %s=%s", self.project_plist, name, value)
 
     def copy_resources(self):
         """
@@ -150,16 +154,24 @@ git_command = '/usr/bin/git'
         if self.resources:
             self._copytree(self.resources, self.project_resources)
         else:
-            logging.debug("No resources configured to copy to %s", self.project_resources)
+            logging.debug("No resources to copy to %s", self.project_resources)
 
     def apply_patches(self):
         """
         Apply the given patches to the project source.
         """
+        git_error = False
         for reference in self.patches:
-            self._cherry_pick(reference)
-        else:
-            logging.debug("No patches configured to apply")
+            if git_error:
+                logging.error("    %s", reference)
+            elif not self._cherry_pick(reference):
+                git_error = True
+                logging.error("Issue detected while applying patch %s. "
+                              "Please fix the issue and manually apply the remaining patches:", reference)
+        if not self.patches:
+            logging.debug("No patches to apply")
+
+        return not git_error
 
     def _copytree(self, src, dst, symlinks=False, ignore=None):
         """
@@ -183,12 +195,12 @@ git_command = '/usr/bin/git'
         cmd = 'Delete' if value is None else 'Set'
         command = '{cmd} :{name} {value}'.format(cmd=cmd, name=name, value=value)
         call_args = [self.plist_buddy, '-c', command, self.project_plist]
-        self._system_command(call_args)
+        return self._system_command(call_args)
 
     def _cherry_pick(self, reference):
         """Cherry-pick the given reference."""
         call_args = [self.git_command, 'cherry-pick', reference]
-        self._system_command(call_args)
+        return self._system_command(call_args)
 
     @staticmethod
     def _system_command(call_args):
@@ -197,9 +209,10 @@ git_command = '/usr/bin/git'
         process = subprocess.Popen(call_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         (output, error) = process.communicate()
         if output:
-            logging.debug(output)
+            logging.info(output)
         if error:
             logging.error(error)
+        return process.returncode == 0
 
 
 def main():
