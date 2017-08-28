@@ -1,12 +1,12 @@
 {
-    "regular":"OpenSans",
-    "semiBold":"OpenSans-Semibold",
+    "regular":"HelveticaNeue",
+    "semiBold":"HelveticaNeue-Medium",
     "semiBoldItalic":"OpenSans-SemiboldItalic",
-    "bold":"OpenSans-Bold",
+    "bold":"HelveticaNeue-Bold",
     "boldItalic":"OpenSans-BoldItalic",
     "extraBold":"OpenSans-ExtraBold",
     "extraBoldItalic":"OpenSans-ExtraBoldItalic",
-    "light":"OpenSans-Light",
+    "light":"HelveticaNeue-Light",
     "lightItalic":"OpenSans-LightItalic",
     "italic":"OpenSans-Italic"
 }
