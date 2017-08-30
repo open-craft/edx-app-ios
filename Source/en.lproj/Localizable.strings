@@ -354,7 +354,13 @@
 /* Button title opening course catalog */
 "ENROLLMENT_LIST.FIND_COURSES" = "Find a course";
 /* Error message when user is not enrolled to any course and course discovery is also disabled.*/
-"ENROLLMENT_LIST.NO_ENROLLMENT" = "It looks like you are not enrolled in any courses yet.";
+"ENROLLMENT_LIST.NO_ENROLLMENT" = "There are no courses on your dashboard.\
+\
+If you are a new student, this might be because you have not activated your account yet. An email should have been sent to the email address you used to register for Cloudera OnDemand. Click on the link in that email to activate your account, then close the Cloudera OnDemand web site and return to this app. Reload the My Courses page using the menu in the upper left-hand corner. You should then see your courses.\
+\
+If you still do not see the courses you believe you should have access to, please email ondemand-feedback@cloudera.com.\
+\
+If you would like to enroll in our free courses, please visit the website at https://ondemand.cloudera.com/courses, log in, and look for courses designated \"Free Self-Paced\".";
 /* Prompt indicating user needs to enter an email address */
 "ENTER_EMAIL"="Please enter your user name or e-mail address and try again.";
 /* Prompt indicating user needs to enter a password */
