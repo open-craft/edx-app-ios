@@ -3632,7 +3632,7 @@
 						TestTargetID = BECB7B0A1924C0C3009C77F1;
 					};
 					BECB7B0A1924C0C3009C77F1 = {
-						DevelopmentTeam = 57UCUYGPA2;
+						DevelopmentTeam = Z673ETT839;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -3648,7 +3648,7 @@
 						};
 					};
 					BECB7B2B1924C0C3009C77F1 = {
-						DevelopmentTeam = 57UCUYGPA2;
+						DevelopmentTeam = Z673ETT839;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						TestTargetID = BECB7B0A1924C0C3009C77F1;
@@ -4729,7 +4729,7 @@
 				CODE_SIGN_ENTITLEMENTS = edX.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				DEVELOPMENT_TEAM = 57UCUYGPA2;
+				DEVELOPMENT_TEAM = Z673ETT839;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4746,7 +4746,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "";
 				PODS_CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cloudera.ondemand.app.ios;
 				PRODUCT_NAME = edX;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/edX-Bridging-Header.h";
@@ -5154,7 +5154,7 @@
 				CODE_SIGN_ENTITLEMENTS = edX.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				DEVELOPMENT_TEAM = 57UCUYGPA2;
+				DEVELOPMENT_TEAM = Z673ETT839;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5170,7 +5170,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PODS_CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cloudera.ondemand.app.ios;
 				PRODUCT_NAME = edX;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5191,7 +5191,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				DEVELOPMENT_TEAM = 57UCUYGPA2;
+				DEVELOPMENT_TEAM = Z673ETT839;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5208,7 +5208,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "";
 				PODS_CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cloudera.ondemand.app.ios;
 				PRODUCT_NAME = edX;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
