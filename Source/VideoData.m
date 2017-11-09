@@ -10,6 +10,7 @@
 
 @implementation VideoData
 
+@dynamic asset_path;
 @dynamic chapter_name;
 @dynamic dm_id;
 @dynamic download_state;

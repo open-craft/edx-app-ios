@@ -13,6 +13,8 @@
 
 #import "OEXUserDetails.h"
 #import "OEXSession.h"
+#import "OEXStorageFactory.h"
+#import "OEXNetworkConstants.h"
 #import "NSString+OEXCrypto.h"
 
 @implementation OEXFileUtility
@@ -131,20 +133,31 @@
     return nil;
 }
 
-+ (NSURL*)fileURLForRequestKey:(NSString*)key username:(NSString*)username {
-    NSString* path = [self filePathForRequestKey:key username:username];
-    if(path == nil) {
-        return nil;
++ (NSString*)filePathForVideo:(VideoData *)video {
+    NSString* filePath = nil;
+
+    if (video.asset_path) {
+        // AVAssets have an asset path pointing to their downloaded location
+        filePath = video.asset_path;
+    } else {
+        // Videos downloaded using NSURLSessionDownloadTasks were moved to the
+        // user's storage area
+        filePath = [[OEXFileUtility filePathForRequestKey:video.video_url] stringByAppendingPathExtension:@"mp4"];
     }
-    else {
-        return [NSURL fileURLWithPath:[self filePathForRequestKey:key username:username]];
-    }
+
+    return filePath;
 }
 
-
-+ (NSString*)filePathForVideoURL:(NSString*)videoUrl username:(nullable NSString *)username {
-    NSString* filepath = [[OEXFileUtility filePathForRequestKey:videoUrl username:username] stringByAppendingPathExtension:@"mp4"];
-    return filepath;
++ (NSString*)filePathForVideoURL:(NSString *)url {
+    NSArray *videos;
+    if (url) {
+        videos = [[OEXStorageFactory getInstance] getVideosForDownloadUrl:url];
+        for(VideoData* videoData in videos) {
+            // TODO JV - why would there be more than one video for this url?
+            return [OEXFileUtility filePathForVideo:videoData];
+        }
+    }
+    return nil;
 }
 
 + (void)nukeUserData {
@@ -180,10 +193,15 @@
 
 + (BOOL) canDeleteFile:(NSString *) file {
     NSString *fileExtension = [[file pathExtension] lowercaseString];
-    if ([fileExtension isEqualToString:@"mp4"] || [fileExtension containsString:@"sqlite"]) {
+    if ([fileExtension containsString:@"sqlite"]) {
         return NO;
     }
-    
+
+    for (NSString *video_extension in ONLINE_ONLY_VIDEO_URL_EXTENSIONS) {
+        if ([fileExtension containsString:video_extension]) {
+            return NO;
+        }
+    }
     return YES;
 }
 

@@ -124,8 +124,12 @@ static OEXDBManager* _sharedManager = nil;
     OEXLogInfo(@"STORAGE", @"DB path %@", storeURL);
 
     NSError* error = nil;
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+            [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+            [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if(![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+    if(![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
         OEXLogInfo(@"STORAGE", @"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
@@ -488,7 +492,7 @@ static OEXDBManager* _sharedManager = nil;
         return nil;
     }
 
-    data = [[NSFileManager defaultManager] contentsAtPath:[OEXFileUtility filePathForRequestKey:videoData.video_url]];
+    data = [[NSFileManager defaultManager] contentsAtPath:[OEXFileUtility filePathForVideo:videoData]];
 
     return data;
 }
@@ -565,7 +569,7 @@ static OEXDBManager* _sharedManager = nil;
 }
 
 - (void)deleteFileForURL:(NSString*)URL {
-    [[NSFileManager defaultManager] removeItemAtPath:[OEXFileUtility filePathForVideoURL:URL username:[OEXSession sharedSession].currentUser.username]
+    [[NSFileManager defaultManager] removeItemAtPath:[OEXFileUtility filePathForVideoURL:URL]
                                                error:nil];
 
     [[NSFileManager defaultManager] removeItemAtPath:[OEXFileUtility filePathForRequestKey:URL]

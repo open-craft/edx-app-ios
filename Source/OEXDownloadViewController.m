@@ -196,9 +196,8 @@
     dispatch_async(dispatch_get_main_queue(), ^(void){
         @autoreleasepool {
             NSDictionary* progress = (NSDictionary*)notification.userInfo;
-            NSURLSessionTask* task = [progress objectForKey:DOWNLOAD_PROGRESS_NOTIFICATION_TASK];
-            NSString* url = [task.originalRequest.URL absoluteString];
-            
+            NSString* url = [progress objectForKey:DOWNLOAD_PROGRESS_NOTIFICATION_TASK_URL];
+
             for(OEXHelperVideoDownload* video in _arr_downloadingVideo) {
                 if([video.summary.videoURL isEqualToString:url]) {
                     [self updateProgressForVisibleRows];

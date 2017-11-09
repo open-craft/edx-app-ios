@@ -618,12 +618,8 @@ static OEXInterface* _sharedInterface = nil;
 - (void)downloadProgressNotification:(NSNotification*)notification {
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             NSDictionary* dictProgress = (NSDictionary*)notification.userInfo;
-            NSURLSessionTask* task = [dictProgress objectForKey:DOWNLOAD_PROGRESS_NOTIFICATION_TASK];
-            NSString* url = [task.originalRequest.URL absoluteString];
-            double totalBytesWritten = [[dictProgress objectForKey:DOWNLOAD_PROGRESS_NOTIFICATION_TOTAL_BYTES_WRITTEN] doubleValue];
-            double totalBytesExpectedToWrite = [[dictProgress objectForKey:DOWNLOAD_PROGRESS_NOTIFICATION_TOTAL_BYTES_TO_WRITE] doubleValue];
-            
-            double completed = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
+            NSString* url = [dictProgress objectForKey:DOWNLOAD_PROGRESS_NOTIFICATION_TASK_URL];
+            double completed = [[dictProgress objectForKey:DOWNLOAD_PROGRESS_NOTIFICATION_TOTAL_COMPLETED] doubleValue];
             float completedPercent = completed * OEXMaxDownloadProgress;
             [self markDownloadProgress:completedPercent forURL:url andVideoId:nil];
     });
@@ -848,7 +844,7 @@ static OEXInterface* _sharedInterface = nil;
         if(![knownVideoIDs containsObject:summary.videoID]) {
             OEXHelperVideoDownload* helper = [[OEXHelperVideoDownload alloc] init];
             helper.summary = summary;
-            helper.filePath = [OEXFileUtility filePathForRequestKey:summary.videoURL];
+            helper.filePath = [OEXFileUtility filePathForVideoURL:summary.videoURL];
             [videoDatas addObject:helper];
             return helper;
         }
@@ -1029,7 +1025,7 @@ static OEXInterface* _sharedInterface = nil;
     for(OEXVideoSummary* objVideo in [self.videoSummaries objectForKey : URL]) {
         OEXHelperVideoDownload* obj_helperVideo = [[OEXHelperVideoDownload alloc] init];
         obj_helperVideo.summary = objVideo;
-        obj_helperVideo.filePath = [OEXFileUtility filePathForRequestKey:obj_helperVideo.summary.videoURL];
+        obj_helperVideo.filePath = [OEXFileUtility filePathForVideoURL:obj_helperVideo.summary.videoURL];
 
         [arr_Videos addObject:obj_helperVideo];
     }
@@ -1153,7 +1149,7 @@ static OEXInterface* _sharedInterface = nil;
     }
 
     if(data) {
-        [[OEXDownloadManager sharedManager] downloadVideoForObject:data withCompletionHandler:^(NSURLSessionDownloadTask* downloadTask) {
+        [[OEXDownloadManager sharedManager] downloadVideoForObject:data withCompletionHandler:^(NSURLSessionTask* downloadTask) {
             if(downloadTask) {
                 video.downloadState = OEXDownloadStatePartial;
                 video.downloadProgress = 0.1;

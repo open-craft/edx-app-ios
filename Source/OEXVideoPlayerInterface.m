@@ -13,6 +13,7 @@
 #import "edX-Swift.h"
 #import "Logger+OEXObjC.h"
 
+#import "OEXFileUtility.h"
 #import "OEXHelperVideoDownload.h"
 #import "OEXInterface.h"
 #import "OEXMathUtilities.h"
@@ -93,7 +94,7 @@
     NSURL* url = [NSURL URLWithString:video.summary.videoURL];
 
     NSFileManager* filemgr = [NSFileManager defaultManager];
-    NSString* path = [video.filePath stringByAppendingPathExtension:@"mp4"];
+    NSString* path = video.filePath;
 
     if([filemgr fileExistsAtPath:path]) {
         url = [NSURL fileURLWithPath:path];

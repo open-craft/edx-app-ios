@@ -13,10 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol OEXDownloadManagerProtocol <NSObject>
 
 @optional
-- (void)downloadTaskDidComplete:(NSURLSessionDownloadTask*)task;
-- (void)downloadAlreadyInProgress:(NSURLSessionDownloadTask*)task;
-- (void)downloadTask:(NSURLSessionDownloadTask*)task didCOmpleteWithError:(NSError*)error;
-//-(void)downloadTaskDidComplete:(NSURLSessionDownloadTask *)task tmpLocation:(NSString *)locatoin;
+- (void)downloadTaskDidComplete:(NSURLSessionTask*)task;
+- (void)downloadAlreadyInProgress:(NSURLSessionTask*)task;
+- (void)downloadTask:(NSURLSessionTask*)task didCompleteWithError:(NSError*)error;
 @end
 
 @interface OEXDownloadManager : NSObject
@@ -26,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Background requests
 
-- (void)downloadVideoForObject:(VideoData*)video withCompletionHandler:(void (^)(NSURLSessionDownloadTask* downloadTask))completionHandler;
+- (void)downloadVideoForObject:(VideoData*)video withCompletionHandler:(void (^)(NSURLSessionTask* downloadTask))completionHandler;
 
 //-(void)cancelDownloadForVideo:(VideoData *)video;
 
