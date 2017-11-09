@@ -141,10 +141,26 @@
     }
 }
 
++ (void)storeFilePathForVideoURL:(NSString*)videoUrl location:(NSURL *)location {
+    // NSURLSessionDownloads moved downloaded files to a new location.
+    // But with AVAssetDownloads, assets must remain at the system-provided URL.
+    // So we store this URL for future use.
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setURL:location forKey:videoUrl];
+}
 
 + (NSString*)filePathForVideoURL:(NSString*)videoUrl username:(nullable NSString *)username {
-    NSString* filepath = [[OEXFileUtility filePathForRequestKey:videoUrl username:username] stringByAppendingPathExtension:@"mp4"];
-    return filepath;
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString* filePath;
+    NSURL* location = [userDefaults URLForKey:videoUrl];
+    if (location) {
+        // Return the stored AVAssetDownload location, if found.
+        filePath = location.path;
+    } else {
+        // Otherwise, return the generated file path.
+        filePath = [[OEXFileUtility filePathForRequestKey:videoUrl username:username] stringByAppendingPathExtension:@"mp4"];
+    }
+    return filePath;
 }
 
 + (void)nukeUserData {

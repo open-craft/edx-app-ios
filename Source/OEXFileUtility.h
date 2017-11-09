@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Do not add new uses of this. In the future we want to be explicitly passing the user
 + (nullable NSString*)filePathForRequestKey:(nullable NSString*)key;
 
++ (void)storeFilePathForVideoURL:(NSString*)videoUrl location:(NSURL *)location;
 + (nullable NSString*)filePathForVideoURL:(nullable NSString*)videoUrl username:(nullable NSString*)username;
 + (nullable NSString*)filePathForRequestKey:(nullable NSString*)key username:(nullable NSString*)username;
 + (nullable NSURL*)fileURLForRequestKey:(nullable NSString*)key username:(nullable NSString*)username;

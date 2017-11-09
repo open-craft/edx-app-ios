@@ -12,8 +12,8 @@
 //NSNotification center constants
 #define DOWNLOAD_PROGRESS_NOTIFICATION @"downloadProgressNotification"
 #define DOWNLOAD_PROGRESS_NOTIFICATION_TASK @"downloadProgressNotificationTask"
-#define DOWNLOAD_PROGRESS_NOTIFICATION_TOTAL_BYTES_WRITTEN @"downloadProgressNotificationTotalBytesWritten"
-#define DOWNLOAD_PROGRESS_NOTIFICATION_TOTAL_BYTES_TO_WRITE @"downloadProgressNotificationTotalBytesToWrite"
+#define DOWNLOAD_PROGRESS_NOTIFICATION_TASK_URL @"downloadProgressNotificationTaskUrl"
+#define DOWNLOAD_PROGRESS_NOTIFICATION_TOTAL_COMPLETED @"downloadProgressNotificationTotalBytesWritten"
 
 #define REQUEST_USER_DETAILS @"User details"
 #define REQUEST_COURSE_ENROLLMENTS @"Courses user has enrolled in"
@@ -22,7 +22,7 @@
 
 // TODO: move the remaining things that mention edx.org into config
 #define VIDEO_URL_EXTENSION_OPTIONS @[ @".mp4", @".m3u8" ]
-#define ONLINE_ONLY_VIDEO_URL_EXTENSIONS @[ @".m3u8" ]
+#define ONLINE_ONLY_VIDEO_URL_EXTENSIONS @[ ]
 #define URL_EXCHANGE_TOKEN @"/oauth2/exchange_access_token/{backend}/"
 #define URL_USER_DETAILS @"/api/mobile/v0.5/users"
 #define URL_COURSE_ENROLLMENTS @"/course_enrollments/"
