@@ -42,10 +42,6 @@
     XCTAssertNil([OEXFileUtility filePathForRequestKey:nil]);
     XCTAssertNil([OEXFileUtility filePathForRequestKey:nil username:self.username]);
     XCTAssertNil([OEXFileUtility filePathForRequestKey:@"foo" username:nil]);
-    XCTAssertNil([OEXFileUtility fileURLForRequestKey:nil username:self.username]);
-    XCTAssertNil([OEXFileUtility fileURLForRequestKey:@"foo" username:nil]);
-    XCTAssertNil([OEXFileUtility fileURLForRequestKey:nil username:self.username]);
-    XCTAssertNil([OEXFileUtility fileURLForRequestKey:@"foo" username:nil]);
 }
 
 - (void)testUserDirectoryMigration {

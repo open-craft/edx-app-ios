@@ -83,13 +83,14 @@ static AVAssetDownloadURLSession* videosBackgroundSession = nil;
 }
 
 - (void)resumePausedDownloads {
+    // FIXME JV - does this still work?
     OEXLogInfo(@"DOWNLOADS", @"Resuming Paused downloads");
     CLS_LOG(@"resumePausedDownloads");
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray* array = [self.storage getVideosForDownloadState:OEXDownloadStatePartial];
         CLS_LOG(@"resumePausedDownloads: videos get successfully");
         for(VideoData* data in array) {
-            NSString* file = [OEXFileUtility filePathForVideoURL:data.video_url username:[OEXSession sharedSession].currentUser.username];
+            NSString* file = [OEXFileUtility filePathForVideo:data];
             if([[NSFileManager defaultManager] fileExistsAtPath:file]) {
                 data.download_state = [NSNumber numberWithInt:OEXDownloadStateComplete];
                 continue;
@@ -171,13 +172,15 @@ static AVAssetDownloadURLSession* videosBackgroundSession = nil;
 }
 
 - (NSData*)resumeDataForURLString:(NSString*)URLString {
-    NSString* filePath = [OEXFileUtility filePathForRequestKey:URLString];
+    // FIXME JV - still needed?
+    NSString* filePath = [OEXFileUtility filePathForVideoURL:URLString];
 
     NSData* data = [NSData dataWithContentsOfFile:filePath];
     return data;
 }
 
 - (BOOL )writeData:(NSData*)data atFilePath:(NSString*)filePath {
+    // FIXME JV - still needed?
     //check if file already exists, delete it
     if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         NSError* error;
@@ -207,25 +210,26 @@ static AVAssetDownloadURLSession* videosBackgroundSession = nil;
     //Task
     AVAssetDownloadTask* downloadTask = nil;
     //Check if already exists
+
+    /* JV FIXME: resume not working with iOS 10?
+       cf https://stackoverflow.com/q/39346231/4302112
+       Also unsure if this works with AVAssetDownloadTasks:
+       cf https://forums.developer.apple.com/thread/66485
     OEXDownloadState state = [video.download_state intValue];
     if(state == OEXDownloadStatePartial) {
         if(video) {
-            /*Get resume data
-            // JV FIXME: resume not working with iOS 10?
-            // cf https://stackoverflow.com/q/39346231/4302112
-            // Also unsure how to do this with AVAssetDownloadTasks, so skipping for now
+            // Get resume data
             NSData* resumedata = [self resumeDataForURLString:video.video_url];
             if(resumedata && ![resumedata isKindOfClass:[NSNull class]]) {
                 OEXLogError(@"DOWNLOADS", @"Download resume for video %@ with resume data", video.title);
                 downloadTask = [videosBackgroundSession downloadTaskWithResumeData:resumedata];
             }
             else {
-            */
                 downloadTask = [videosBackgroundSession assetDownloadTaskWithURLAsset:avAsset
                                                                            assetTitle:video.title
                                                                      assetArtworkData:nil
                                                                               options:nil];
-            //}
+            }
         }
         //If not, start a fresh download
         else {
@@ -236,11 +240,12 @@ static AVAssetDownloadURLSession* videosBackgroundSession = nil;
         }
     }
     else {
+    */
         downloadTask = [videosBackgroundSession assetDownloadTaskWithURLAsset:avAsset
                                                                    assetTitle:video.title
                                                              assetArtworkData:nil
                                                                       options:nil];
-    }
+    // }
 
     //Update DB
     video.download_state = [NSNumber numberWithInt: OEXDownloadStatePartial];
@@ -383,18 +388,19 @@ static AVAssetDownloadURLSession* videosBackgroundSession = nil;
     __block NSData* data = [NSData dataWithContentsOfURL:location];
     if(!data) {
         OEXLogInfo(@"DOWNLOADS", @"Data is Null for downloaded file. Location ==>> %@ ", location);
-        // TODO - remove item at location.relativePath?
+        // TODO JV - remove item(s) at location.relativePath?
     }
 
     OEXLogInfo(@"DOWNLOADS", @"Downloaded Video saved at ==>> %@", location.relativePath);
 
-    // Store the file path for the downloaded video URL
     __block NSString* downloadUrl = [assetDownloadTask.URLAsset.URL absoluteString];
-    [OEXFileUtility storeFilePathForVideoURL:downloadUrl location:location];
 
     NSArray* videos = [self.storage getAllDownloadingVideosForURL:downloadUrl];
     for(VideoData* videoData in videos) {
         OEXLogInfo(@"DOWNLOADS", @"Updating record for Downloaded Video ==>> %@", videoData.title);
+
+        // Store the downloaded asset location, because AVAssets cannot be moved once downloaded.
+        videoData.asset_path = location.path;
 
         [[OEXAnalytics sharedAnalytics] trackDownloadComplete:videoData.video_id CourseID:videoData.enrollment_id UnitURL:videoData.unit_url];
 

@@ -21,6 +21,7 @@
 #import "OEXCourseVideosTableViewCell.h"
 #import "OEXCustomEditingView.h"
 #import "OEXCustomLabel.h"
+#import "OEXFileUtility.h"
 #import "OEXDownloadViewController.h"
 #import "OEXInterface.h"
 #import "OEXFrontTableViewCell.h"
@@ -722,17 +723,6 @@ typedef  enum OEXAlertType
 
     // Set the path of the downloaded videos
     [_dataInterface downloadAllTranscriptsForVideo:self.currentTappedVideo];
-
-    NSFileManager* filemgr = [NSFileManager defaultManager];
-    NSString* slink = [self.currentTappedVideo.filePath stringByAppendingPathExtension:@"mp4"];
-    if(![filemgr fileExistsAtPath:slink]) {
-        NSError* error = nil;
-        [filemgr createSymbolicLinkAtPath:slink withDestinationPath:self.currentTappedVideo.filePath error:&error];
-
-        if(error) {
-            [self showAlert:OEXAlertTypePlayBackErrorAlert];
-        }
-    }
 
     self.video_containerView.hidden = NO;
     [_videoPlayerInterface setShouldRotate:YES];

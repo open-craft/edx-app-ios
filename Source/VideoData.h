@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VideoData : NSManagedObject
 
+@property (nonatomic, retain) NSString* asset_path;
 @property (nonatomic, retain) NSString* chapter_name;
 @property (nonatomic, retain) NSNumber* dm_id;
 @property (nonatomic, retain) NSNumber* download_state;

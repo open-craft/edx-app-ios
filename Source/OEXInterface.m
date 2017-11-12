@@ -844,7 +844,7 @@ static OEXInterface* _sharedInterface = nil;
         if(![knownVideoIDs containsObject:summary.videoID]) {
             OEXHelperVideoDownload* helper = [[OEXHelperVideoDownload alloc] init];
             helper.summary = summary;
-            helper.filePath = [OEXFileUtility filePathForRequestKey:summary.videoURL];
+            helper.filePath = [OEXFileUtility filePathForVideoURL:summary.videoURL];
             [videoDatas addObject:helper];
             return helper;
         }
@@ -1025,7 +1025,7 @@ static OEXInterface* _sharedInterface = nil;
     for(OEXVideoSummary* objVideo in [self.videoSummaries objectForKey : URL]) {
         OEXHelperVideoDownload* obj_helperVideo = [[OEXHelperVideoDownload alloc] init];
         obj_helperVideo.summary = objVideo;
-        obj_helperVideo.filePath = [OEXFileUtility filePathForRequestKey:obj_helperVideo.summary.videoURL];
+        obj_helperVideo.filePath = [OEXFileUtility filePathForVideoURL:obj_helperVideo.summary.videoURL];
 
         [arr_Videos addObject:obj_helperVideo];
     }

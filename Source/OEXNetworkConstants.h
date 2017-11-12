@@ -11,7 +11,6 @@
 
 //NSNotification center constants
 #define DOWNLOAD_PROGRESS_NOTIFICATION @"downloadProgressNotification"
-#define DOWNLOAD_PROGRESS_NOTIFICATION_TASK @"downloadProgressNotificationTask"
 #define DOWNLOAD_PROGRESS_NOTIFICATION_TASK_URL @"downloadProgressNotificationTaskUrl"
 #define DOWNLOAD_PROGRESS_NOTIFICATION_TOTAL_COMPLETED @"downloadProgressNotificationTotalBytesWritten"
 
