@@ -67,7 +67,7 @@ class CourseCardView: UIView, UIGestureRecognizerDelegate {
         
         self.container.backgroundColor = OEXStyles.shared().neutralWhite().withAlphaComponent(0.85)
         self.coverImageView.backgroundColor = OEXStyles.shared().neutralWhiteT()
-        self.coverImageView.contentMode = UIViewContentMode.scaleAspectFill
+        self.coverImageView.contentMode = UIViewContentMode.scaleAspectFit
         self.coverImageView.clipsToBounds = true
         self.coverImageView.hidesLoadingSpinner = true
         
@@ -96,7 +96,7 @@ class CourseCardView: UIView, UIGestureRecognizerDelegate {
             make.leading.equalTo(self)
             make.trailing.equalTo(self)
             make.height.equalTo(self.coverImageView.snp_width).multipliedBy(0.533).priorityLow()
-            make.bottom.equalTo(self)
+            make.bottom.equalTo(self.titleLabel.snp_top).offset(-verticalMargin)
         }
         self.detailLabel.snp_makeConstraints { (make) -> Void in
             make.leading.equalTo(self.container).offset(StandardHorizontalMargin)
