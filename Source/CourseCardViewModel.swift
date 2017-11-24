@@ -72,6 +72,8 @@ class CourseCardViewModel : NSObject {
             remoteImage = RemoteImageJustImage(image: placeholder)
         }
 
+        // Ensure all course cards use a consistent aspect ratio, determined by the placeholder image
+        card.coverImageAspectRatio = CGFloat(placeholder!.size.height) / CGFloat(placeholder!.size.width)
         card.coverImage = remoteImage
     }
     

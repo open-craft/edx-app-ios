@@ -14,6 +14,7 @@ class CourseCardView: UIView, UIGestureRecognizerDelegate {
     private let verticalMargin = 10
     
     var course: OEXCourse?
+    var coverImageAspectRatio = CGFloat(0.533)
     
     private let coverImageView = UIImageView()
     private let container = UIView()
@@ -95,7 +96,7 @@ class CourseCardView: UIView, UIGestureRecognizerDelegate {
             make.top.equalTo(self)
             make.leading.equalTo(self)
             make.trailing.equalTo(self)
-            make.height.equalTo(self.coverImageView.snp_width).multipliedBy(0.533).priorityLow()
+            make.height.equalTo(self.coverImageView.snp_width).multipliedBy(self.coverImageAspectRatio).priorityLow()
             make.bottom.equalTo(self.titleLabel.snp_top).offset(-verticalMargin)
         }
         self.detailLabel.snp_makeConstraints { (make) -> Void in
