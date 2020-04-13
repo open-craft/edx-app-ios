@@ -3407,6 +3407,7 @@
 		B4B6D5F01A949ED6000F44E8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A1A9E3B62445AE7E00335883 /* TpaAuthViewController.swift */,
 				77503E8B1B278B9A00C47229 /* RegistrationFieldSelectView.swift */,
 				77FFA2BC1AC3031900B4D69B /* OEXUsingExternalAuthHeadingView.h */,
 				77FFA2BD1AC3031900B4D69B /* OEXUsingExternalAuthHeadingView.m */,
@@ -4914,6 +4915,7 @@
 				1AFEB1B61BBD5B95004C471D /* ProfilePictureTaker.swift in Sources */,
 				B7CCC723209B16B100A66923 /* ConstraintPriorityTarget.swift in Sources */,
 				77E647CE1C90CAB800B6740D /* NSAttributedString+OEXFormatting.m in Sources */,
+				A1A9E3B72445AE7E00335883 /* TpaAuthViewController.swift in Sources */,
 				E09B9D6B1D06C9700080BAE0 /* VersionUpgradeInfoController.swift in Sources */,
 				9E882B6A1BBA9825007347A2 /* DiscussionTopicCell.swift in Sources */,
 				B7CCC72C209B16B100A66923 /* ConstraintView.swift in Sources */,

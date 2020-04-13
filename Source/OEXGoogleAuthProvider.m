@@ -59,3 +59,46 @@
 }
 
 @end
+
+@implementation OEXSamlAuthProvider
+
+- (UIColor*)buttonColor {
+    // FIXME JV make configurable
+    return [UIColor colorWithRed:66.0/255.0 green:133.0/255.0 blue:244.0/255.0 alpha:1];
+}
+
+- (NSString*)displayName {
+    // FIXME JV make configurable
+    return @"Cloudera";
+}
+
+- (NSString*)backendName {
+    // FIXME JV make configurable
+    return @"tpa-saml";
+}
+
+- (OEXExternalAuthProviderButton*)freshAuthButton {
+    OEXExternalAuthProviderButton* button = [[OEXExternalAuthProviderButton alloc] initWithFrame:CGRectZero];
+    button.provider = self;
+    // FIXME: make configurable
+    //[button setImage:[UIImage imageNamed:@"icon_google_white"] forState:UIControlStateNormal];
+    [button useBackgroundImageOfColor:[self buttonColor]];
+    return button;
+}
+
+- (void)authorizeServiceFromController:(UIViewController *)controller requestingUserDetails:(BOOL)loadUserDetails withCompletion:(void (^)(NSString *, OEXRegisteringUserDetails *, NSError *))completion {
+
+  NSLog(@"SamlAuthProvider authorizeServiceFromController");
+
+  [self setupGlobalEnvironment];
+  [self.environment.router showTpaAuthViewFromController:controller];
+}
+
+#pragma mark Environment
+
+- (void)setupGlobalEnvironment {
+    self.environment = [[OEXEnvironment alloc] init];
+    [self.environment setupEnvironment];
+}
+
+@end
