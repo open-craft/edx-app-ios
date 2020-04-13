@@ -8,11 +8,18 @@
 
 @import Foundation;
 
+#import "OEXEnvironment.h"
 #import "OEXExternalAuthProvider.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OEXGoogleAuthProvider : NSObject <OEXExternalAuthProvider>
+
+@end
+
+@interface OEXSamlAuthProvider : NSObject <OEXExternalAuthProvider>
+
+@property (nonatomic, strong) OEXEnvironment* environment;
 
 @end
 

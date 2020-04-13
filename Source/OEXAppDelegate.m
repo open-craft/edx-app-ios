@@ -101,6 +101,12 @@
             return handled;
         }
     }
+
+    // TODO JV: enable with environment
+    handled = [AuthenticatedWebViewController handleSamlUrl:url options:options];
+    if (handled) {
+        return handled;
+    }
     
     if (self.environment.config.facebookConfig.enabled) {
         handled = [[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options];

@@ -81,7 +81,7 @@
 @implementation OEXLoginViewController
 
 - (void)layoutSubviews {
-    if(!([self isFacebookEnabled] || [self isGoogleEnabled])) {
+    if(!([self isFacebookEnabled] || [self isGoogleEnabled] || [self isSamlEnabled])) {
         self.lbl_OrSignIn.hidden = YES;
         self.seperatorLeft.hidden = YES;
         self.seperatorRight.hidden = YES;
@@ -124,6 +124,11 @@
     return ![OEXNetworkUtility isOnZeroRatedNetwork] && [self.environment.config googleConfig].enabled;
 }
 
+- (BOOL)isSamlEnabled {
+    // TODO JV: make config driven
+    return ![OEXNetworkUtility isOnZeroRatedNetwork] && 1;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -135,6 +140,9 @@
     }
     if([self isFacebookEnabled]) {
         [providers addObject:[[OEXFacebookAuthProvider alloc] init]];
+    }
+    if([self isSamlEnabled]) {
+        [providers addObject:[[OEXSamlAuthProvider alloc] init]];
     }
     __weak __typeof(self) owner = self;
     OEXExternalAuthOptionsView* externalAuthOptions = [[OEXExternalAuthOptionsView alloc] initWithFrame:self.externalAuthContainer.bounds providers:providers accessibilityLabel:[Strings signInPrompt] tapAction:^(id<OEXExternalAuthProvider> provider) {
@@ -272,6 +280,13 @@
         [self handleActivationDuringLogin];
     }
     else if(![facebookManager isLogin] && [self.authProvider isKindOfClass:[OEXFacebookAuthProvider class]]) {
+        [self handleActivationDuringLogin];
+    }
+    else if([self.authProvider isKindOfClass:[OEXSamlAuthProvider class]]
+            // FIXME JV
+            // && ![[OEXGoogleSocial sharedInstance] handledOpenUrl])
+            ) {
+        // [[OEXGoogleSocial sharedInstance] clearHandler];
         [self handleActivationDuringLogin];
     }
     [[OEXGoogleSocial sharedInstance] setHandledOpenUrl:NO];

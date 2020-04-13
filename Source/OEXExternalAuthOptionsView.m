@@ -42,6 +42,9 @@ static CGFloat OEXExternalAuthButtonAspectRatio = 3.4;
             else if ([provider isKindOfClass:[OEXGoogleAuthProvider class]]) {
                 button.accessibilityIdentifier = @"ExternalAuthOptionsView:google-button";
             }
+            else if ([provider isKindOfClass:[OEXSamlAuthProvider class]]) {
+                button.accessibilityIdentifier = @"ExternalAuthOptionsView:saml-button";
+            }
             button.accessibilityLabel = [NSString stringWithFormat:@"%@ %@",accessibilityLabel,button.titleLabel.text];
             [button oex_addAction:^(id  _Nonnull control) {
                 tapAction(provider);

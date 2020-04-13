@@ -354,4 +354,23 @@ public class AuthenticatedWebViewController: UIViewController, WKNavigationDeleg
             completionHandler(.performDefaultHandling, nil)
         }
     }
+
+    @objc public static func handleSamlUrl(_ url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+
+        // Determine who sent the URL.
+        let sendingAppID = options[.sourceApplication]
+        print("source application = \(sendingAppID ?? "Unknown")")
+
+        // Process the URL.
+        guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
+          let scheme = components.scheme,
+          let path = components.path else {
+            print("Invalid URL? \(url)")
+            return false
+        }
+
+        print("scheme \(scheme)")
+        print("path \(path)")
+        return false
+    }
 }

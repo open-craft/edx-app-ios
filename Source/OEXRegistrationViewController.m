@@ -161,6 +161,8 @@ NSString* const OEXExternalRegistrationWithExistingAccountNotification = @"OEXEx
     [self.scrollView addGestureRecognizer:tapGesture];
     
     NSMutableArray* providers = [[NSMutableArray alloc] init];
+    // TODO JV: make config driven
+    [providers addObject:[[OEXSamlAuthProvider alloc] init]];
     if(self.environment.config.googleConfig.enabled) {
         [providers addObject:[[OEXGoogleAuthProvider alloc] init]];
     }

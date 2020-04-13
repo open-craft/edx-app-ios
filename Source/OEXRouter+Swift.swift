@@ -388,7 +388,12 @@ extension OEXRouter {
         controller.navigationController?.pushViewController(c, animated: true)
         c.loadRequest(request: URLRequest(url: url as URL) as NSURLRequest)
     }
-    
+
+    @objc(showTpaAuthViewFromController:) public func showTpaAuthView(controller: UIViewController) {
+        let c = TpaAuthViewController(environment: environment)
+        controller.navigationController?.pushViewController(c, animated: true)
+    }
+
     func showCourseWithID(courseID : String, fromController: UIViewController, animated: Bool = true) {
         let controller = CourseDashboardViewController(environment: environment, courseID: courseID)
         fromController.navigationController?.pushViewController(controller, animated: animated)
